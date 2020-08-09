@@ -10,6 +10,10 @@ client = commands.Bot(command_prefix = '.')
 async def on_ready():
     print("Bot is Ready")
 
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+
 keep_alive()
 TOKEN = os.environ.get("TOKEN")
 client.run(TOKEN)
