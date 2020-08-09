@@ -60,7 +60,7 @@ description = "A Python wrapper for the Discord API"
 name = "discord.py"
 optional = false
 python-versions = ">=3.5.3"
-version = "1.4.0"
+version = "1.4.1"
 
 [package.dependencies]
 aiohttp = ">=3.6.0,<3.7.0"
@@ -205,8 +205,8 @@ click = [
     {file = "click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a"},
 ]
 "discord.py" = [
-    {file = "discord.py-1.4.0-py3-none-any.whl", hash = "sha256:2b1846bfa382b54f4eace8e437a9f59f185388c5b08749ac0e1bbd98e05bfde5"},
-    {file = "discord.py-1.4.0.tar.gz", hash = "sha256:f3db9531fccc391f51de65cfa46133106a9ba12ff2927aca6c14bffd3b7f17b5"},
+    {file = "discord.py-1.4.1-py3-none-any.whl", hash = "sha256:98ea3096a3585c9c379209926f530808f5fcf4930928d8cfb579d2562d119570"},
+    {file = "discord.py-1.4.1.tar.gz", hash = "sha256:f9decb3bfa94613d922376288617e6a6f969260923643e2897f4540c34793442"},
 ]
 flask = [
     {file = "Flask-1.1.2-py2.py3-none-any.whl", hash = "sha256:8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557"},
