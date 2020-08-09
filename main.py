@@ -4,7 +4,7 @@ import webserver
 from webserver import keep_alive
 import os
 
-client = commands.Bot(command_prefix = '.')
+client = commands.Bot(command_prefix = 'crt!')
 
 @client.event
 async def on_ready():
