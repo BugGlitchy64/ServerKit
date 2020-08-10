@@ -6,9 +6,6 @@ import os
 
 client = commands.Bot(command_prefix = 'crt!')
 
-client.remove_command('help')
-
-
 @client.event
 async def on_ready():
     print("Bot is Ready")
