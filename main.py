@@ -5,6 +5,7 @@ from webserver import keep_alive
 import os
 
 client = commands.Bot(command_prefix = 'crt!')
+color = 7CFC00
 
 @client.event
 async def on_ready():
@@ -12,7 +13,7 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    embed = discord.Embed(title = 'Pong!', description = str({round(client.latency * 1000)}) + "ms")
+    embed = discord.Embed(title = 'Pong!', description = str(**round(client.latency * 1000)**) + "ms", color = color)
     await ctx.send(embed = embed)
 
 keep_alive()
