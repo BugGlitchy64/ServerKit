@@ -8,11 +8,12 @@ class ping(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Cog is OK!')
+        print('Ping is OK!')
         
     @commands.command()
     async def ping(self, ctx):
-        ping = str(round(client.latency * 1000))
+        color = discord.Color(1242520)
+        ping = str(round(self.client.latency * 1000))
         embed = discord.Embed(title = ':ping_pong: Pong!', description = '**' + ping + '**' + 'ms', color = color)
         await ctx.send(embed = embed)
 
