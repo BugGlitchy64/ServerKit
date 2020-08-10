@@ -16,10 +16,16 @@ async def on_ready():
     print("Bot is Ready")
 
 @client.command()
-async def ping(ctx):
-    ping = str(round(client.latency * 1000))
-    embed = discord.Embed(title = ':ping_pong: Pong!', description = '**' + ping + '**' + 'ms', color = color)
-    await ctx.send(embed = embed)
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 @client.command()
 async def help(ctx):
