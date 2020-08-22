@@ -12,11 +12,11 @@ class thoughts(commands.Cog):
         print('Help is OK!')
         
     @commands.command()
-    thoughts = ['Bruh ossas', 'Meme tape']
+    thoughtlist = ['Bruh ossas', 'Meme tape']
     async def help(self, ctx):
         random.seed()
         color = discord.Color(1242520)
-        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughts[random.randrange(0,1)] ,color = color)
+        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0,1)] ,color = color)
         await ctx.send(embed = embed)
 
 def setup(client):
