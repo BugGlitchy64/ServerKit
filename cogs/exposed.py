@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import random
 
 class exposed(commands.Cog):
 
@@ -12,9 +11,9 @@ class exposed(commands.Cog):
         print('exposed is OK!')
         
     @commands.command()
-    async def thoughts(self, ctx):
+    async def exposed(self, ctx):
         color = discord.Color(1242520)
-        user = discord.User.display_name
+        user = str(discord.User.display_name)
         embed = discord.Embed(description = user + "fuck you!", color = color)
         await ctx.send(embed = embed)
 
