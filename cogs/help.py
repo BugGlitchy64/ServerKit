@@ -17,6 +17,7 @@ class help(commands.Cog):
         embed = discord.Embed(title = 'Help', color = color)
         embed.add_field(name = 'help', value = 'Shows this help message!', inline = False)
         embed.add_field(name = 'ping', value = 'A ping command!', inline = False)
+        embed.add_field(name = 'thoughts', value = 'Randm quotes', inline = False)
         await ctx.send(embed = embed)
 
 def setup(bot):
