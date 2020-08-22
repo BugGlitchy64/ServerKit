@@ -13,10 +13,10 @@ class thoughts(commands.Cog):
         
     @commands.command()
     async def thoughts(self, ctx):
-        thoughtlist = ['Bruh ossas', 'Meme tape']
+        thoughtlist = ['Bruh ossas', 'Meme tape', 'Good Night and FUCK YOU!']
         random.seed()
         color = discord.Color(1242520)
-        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0,1)] ,color = color)
+        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0, len(thoughtlist))], color = color)
         await ctx.send(embed = embed)
 
 def setup(client):
