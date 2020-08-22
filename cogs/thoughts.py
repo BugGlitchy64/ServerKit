@@ -9,11 +9,11 @@ class thoughts(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Help is OK!')
+        print('thoughts is OK!')
         
     @commands.command()
-    thoughtlist = ['Bruh ossas', 'Meme tape']
-    async def help(self, ctx):
+    async def thoughts(self, ctx):
+        thoughtlist = ['Bruh ossas', 'Meme tape']
         random.seed()
         color = discord.Color(1242520)
         embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0,1)] ,color = color)
