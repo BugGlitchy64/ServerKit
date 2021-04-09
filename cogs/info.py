@@ -34,8 +34,8 @@ class info(commands.Cog):
     async def info(self, ctx):
         embed = discord.Embed(title = 'ServerKit', color = self.client.color)
         embed.description = "This is a bot that came from the fustration of some bot features are locked by subscription and servers with a lot of bots, simplicity should be in every server. Written by BugGlitchy64."
-        embed.add_field(name = "Invite link", value = "https://discord.com/oauth2/authorize?client_id=828582617254461481&scope=bot&permissions=8")
-        embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit")
+        embed.add_field(name = "Invite link", value = "https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands", inline=False)
+        embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit", inline=False)
         embed.set_footer(text = f"Version {self.client.version}")
         await ctx.send(embed = embed, reference = ctx.message)
 
