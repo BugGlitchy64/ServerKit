@@ -27,7 +27,6 @@ ytdl_format_options = {
     'ignoreerrors': False,
     'logtostderr': False,
     'quiet': True,
-    'cachedir': False,
     'no_warnings': True,
     'default_search': 'auto',
     'source_address': '0.0.0.0', # bind to ipv4 since ipv6 addresses cause issues sometimes
@@ -35,7 +34,8 @@ ytdl_format_options = {
         'key': 'FFmpegExtractAudio',
         'preferredquality': '192',
         'preferredcodec': 'mp3'
-    }]
+    }],
+    'cachedir': False,
 }
 
 ffmpeg_options = {
