@@ -21,7 +21,7 @@ import discord
 from discord.ext import commands
 
 ytdl_format_options = {
-    'format': 'bestaudio',
+    'format': 'bestaudio/best',
     'noplaylist': True,
     'nocheckcertificate': True,
     'ignoreerrors': False,
