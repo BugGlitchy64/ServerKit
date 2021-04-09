@@ -15,9 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with ServerKit.  If not, see <http://www.gnu.org/licenses/>.
 
-from dotenv import load_dotenv
-load_dotenv()
-import os
 import discord
 from discord.ext import commands
 
@@ -25,6 +22,7 @@ class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        client.remove_command('help')
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -39,8 +37,63 @@ class info(commands.Cog):
         embed.add_field(name = "Invite link", value = "https://discord.com/oauth2/authorize?client_id=828582617254461481&scope=bot&permissions=8")
         embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit")
         embed.set_footer(text = f"Version {self.client.version}")
-        await ctx.send(embed = embed)
+        await ctx.send(embed = embed, reference = ctx.message)
 
+    @commands.command(
+        name = 'help', aliases = ['commands'], description = "The help command lists all of the commands usable in the bot!", usage = "Information"
+    )
+    async def help(self, ctx, arg=None):
+        cogs = [c for c in self.client.cogs.keys()]
+        if arg == None:
+            embed = discord.Embed(title = 'ℹ️ Important commands', color = self.client.color)
+            embed.description = f'Here are a list of some important commands in the bot, prefix is `{self.client.command_prefix}`.\nType `{self.client.command_prefix}help (command)` for more info.\nType `{self.client.command_prefix}help 2` for miscellaneous commands.'
+            embed.add_field(name = '🔨 Moderation', value = '`ban` `kick` `mute*` `warn*`', inline = True)
+            embed.add_field(name = '🎵 Music', value = '`join` `play` `stop` `skip*` `voteskip*` `pause` `queue*`')
+            embed.set_footer(text = 'You are in page 1/2. (* ones are in construction)')
+        elif arg == "2":
+            embed = discord.Embed(title = 'ℹ️ Miscellaneous commands', color = self.client.color)
+            embed.description = f'Prefix is `{self.client.command_prefix}`.\nTo return to the important commands, type `{self.client.command_prefix}help`.'
+            embed.add_field(name = 'ℹ️ Information', value = '`help` `info` `ping` `changelog`', inline = True)
+            embed.add_field(name = '😂 Fun', value = '`eightball` `dice` `thoughts`', inline = True)
+            embed.set_footer(text = 'You are in page 2/2. (* ones are in construction)')
+        else:
+            noCommand = True
+            lowArg = arg.lower()
+            for cog in cogs:
+                for command in self.client.get_cog(cog).get_commands():
+                    if lowArg == command.name:
+                        embed = discord.Embed(title = f'{self.client.command_prefix}{command.name}', color = self.client.color)
+                        embed.description = f'`{command.description}`'
+                        embed.add_field(name = 'Category', value = command.usage, inline = True)
+                        embed.add_field(name = 'Alias(es)', value = command.aliases, inline = True)
+                        noCommand = False 
+                        break
+            if noCommand == True:    
+                embed = discord.Embed(title = "Ayo this command doesn't exist!", color = self.client.color)
+                embed.description = 'Did you made a typo, or are you curious as to if this command exists? Try again!'
+        await ctx.send(embed = embed, reference = ctx.message)
+
+    @commands.command(
+        name = 'changelog', description = "Shows the version log about the bot!", usage = "Information"
+    )
+    async def changelog(self, ctx):
+        embed = discord.Embed(title = 'Changelog', color = self.client.color)
+        embed.description = "Version features and changes."
+        embed.add_field(name = "Version 0.2.3", value = "Cleanup, final version before v0.3 (/shhhhh), and submit to top.gg, with few more features.", inline = False)
+        embed.add_field(name = "Version 0.2.2", value = "New branding! (With cleanup)", inline = False)
+        embed.add_field(name = "Version 0.2.1", value = "Major bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.2", value = "Added Music and changelog, with bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.1.1.4", value = "Bug fixes.", inline = False)
+        embed.set_footer(text = f"Version {self.client.version}")
+        await ctx.send(embed = embed, reference = ctx.message)
+
+    @commands.command(
+        name = 'ping', description = "Measure the delay between you and the bot!", usage = "Information"
+    )
+    async def ping(self, ctx):
+        ping = str(round(self.client.latency * 1000))
+        embed = discord.Embed(title = ':ping_pong: Pong!', description = '**' + ping + '**' + 'ms', color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
 
 def setup(client):
     client.add_cog(info(client))

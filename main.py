@@ -33,7 +33,7 @@ else:
     client.color = 0xffb600
 
 if os.getenv("PRODUCTION") == "True":
-    client.version = "Alpha 0.2.2"
+    client.version = "Alpha 0.2.3"
 else:
     client.version = "Alpha-DEV 0.3"
 

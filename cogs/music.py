@@ -75,21 +75,17 @@ class music(commands.Cog):
     @commands.command(
         name = 'join', description = "Join a music channel", usage = "Music"
     )
-    async def join(self, ctx, channel=None):
+    async def join(self, ctx):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_connected():
             await voice.disconnect()
-        if channel is not None:
-            voiceChannel = discord.utils.get(ctx.guild.voice_channels, name=channel)
-            if voice is None or not voice.is_connected():
-                await voiceChannel.connect()
         else:
             connected = ctx.author.voice
             if connected:
                 await connected.channel.connect()
             channel = ctx.author.voice.channel.name
-        embed = discord.Embed(title = 'Joined channel!', description = f'Check `{channel}` if I joined!', color = self.client.color)
-        await ctx.send(embed = embed)
+        embed = discord.Embed(title = '➕ Joined channel!', description = f'Check `{channel}` if I joined!', color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
 
     @commands.command(
         name = 'leave', description = "leave a music channel", usage = "Music"
@@ -98,28 +94,28 @@ class music(commands.Cog):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_connected():
             await voice.disconnect()
-        embed = discord.Embed(title = 'Left Channel', description = "Let's jam later!", color = self.client.color)
-        await ctx.send(embed = embed)
+        embed = discord.Embed(title = '➖ Left Channel', description = "Let's jam later!", color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
 
     @commands.command(
-        name = 'play', description = "Play a music from YouTube/Spotify", usage = "Music"
+        name = 'play', description = "Play a music from YouTube", usage = "Music"
     )
-    async def play(self, ctx, link=None):
+    async def play(self, ctx, *, link=None):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and not voice.is_playing() and voice.is_paused() and link is None:
             voice.resume()
-            embed = discord.Embed(title = 'Resuming...', description = 'Music should be resumed now!', color = self.client.color)
+            embed = discord.Embed(title = '▶️ Resuming...', description = 'Music should be resumed now!', color = self.client.color)
         elif link is None:
-            embed = discord.Embed(title = 'No link', description = 'Are you dumb? No link = No music! Provide link and try again!', color = self.client.color)
+            embed = discord.Embed(title = '😕 No link/keyword', description = 'Are you dumb? No link/keyword = No music! Provide link and try again!', color = self.client.color)
         elif voice is None and not voice.is_connected():
-            embed = discord.Embed(title = 'Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
+            embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
         elif voice is not None and link is not None and voice.is_playing() or voice.is_paused():
-            embed = discord.Embed(title = 'Queue is not supported yet!', description = f'Queue function will be added in a future update. Please use {self.client.command_prefix}stop or wait for it to finish!', color = self.client.color)
+            embed = discord.Embed(title = '😔 Queue is not supported yet!', description = f'Queue function will be added in a future update. Please use {self.client.command_prefix}stop or wait for it to finish!', color = self.client.color)
         else:
             player = await YTDLSource.from_url(link, loop=None)
             voice.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-            embed = discord.Embed(title = 'Now playing', description = f'{player.title}', color = self.client.color)
-        await ctx.send(embed = embed)
+            embed = discord.Embed(title = '▶️ Now playing', description = f'{player.title}', color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
     
     @commands.command(
         name = 'stop', description = "Stops music.", usage = "Music"
@@ -128,12 +124,12 @@ class music(commands.Cog):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_playing() or voice.is_paused():
             voice.stop()
-            embed = discord.Embed(title = 'Successfully stopped playing music.', description = 'No more jam! :(', color = self.client.color)
+            embed = discord.Embed(title = '⏹️ Successfully stopped playing music.', description = 'No more jam! :(', color = self.client.color)
         elif voice is not None and not voice.is_playing() and not voice.is_paused():
-            embed = discord.Embed(title = "Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
+            embed = discord.Embed(title = "😕 Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
         else:
-            embed = discord.Embed(title = 'Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
-        await ctx.send(embed = embed)
+            embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
 
     @commands.command(
         name = 'pause', description = "Pauses music.", usage = "Music"
@@ -142,14 +138,14 @@ class music(commands.Cog):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_playing() and not voice.is_paused():
             voice.pause()
-            embed = discord.Embed(title = 'Music Paused.', description = '*Record Pauses*', color = self.client.color)
+            embed = discord.Embed(title = '⏸️ Music Paused.', description = '*Record Pauses*', color = self.client.color)
         elif voice is not None and voice.is_paused() and not voice.is_playing():
-            embed = discord.Embed(title = 'Music is paused bro', description = f'Use {self.client.command_prefix}play to resume!', color = self.client.color)
+            embed = discord.Embed(title = '😕 Music is paused bro', description = f'Use {self.client.command_prefix}play to resume!', color = self.client.color)
         elif voice is not None and not voice.is_playing() and not voice.is_paused():
-            embed = discord.Embed(title = "Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
+            embed = discord.Embed(title = "😕 Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
         else:
-            embed = discord.Embed(title = 'Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
-        await ctx.send(embed = embed)
+            embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
+        await ctx.send(embed = embed, reference = ctx.message)
 
 def setup(client):
     client.add_cog(music(client))
