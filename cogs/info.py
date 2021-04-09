@@ -15,34 +15,32 @@
 # You should have received a copy of the GNU General Public License
 # along with ServerKit.  If not, see <http://www.gnu.org/licenses/>.
 
+from dotenv import load_dotenv
+load_dotenv()
+import os
 import discord
 from discord.ext import commands
-import random
 
-class thoughts(commands.Cog):
+class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("[DEBUG] Thoughts is OK!")
+        print("[DEBUG] Info is OK!")
         
     @commands.command(
-        name = 'thoughts', description = "Random thoughts and all.", usage = "Misc"
+        name = 'info', description = "Shows the info about the bot!", usage = "Information"
     )
-    async def thoughts(self, ctx):
-        thoughtlist = [
-        'Man you got issues', 
-        'Ok brain now shut up', 
-        'Good Night and FUCK YOU!',
-        'Bread',
-        'Hamburger',
-        'You are not funny'
-        ]
-        random.seed()
-        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0, len(thoughtlist))], color = self.client.color)
+    async def info(self, ctx):
+        embed = discord.Embed(title = 'ServerKit', color = self.client.color)
+        embed.description = "This is a bot that came from the fustration of some bot features are locked by subscription and servers with a lot of bots, simplicity should be in every server. Written by BugGlitchy64."
+        embed.add_field(name = "Invite link", value = "https://discord.com/oauth2/authorize?client_id=828582617254461481&scope=bot&permissions=8")
+        embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit")
+        embed.set_footer(text = f"Version {self.client.version}")
         await ctx.send(embed = embed)
 
+
 def setup(client):
-    client.add_cog(thoughts(client))
+    client.add_cog(info(client))

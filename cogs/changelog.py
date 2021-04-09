@@ -15,34 +15,33 @@
 # You should have received a copy of the GNU General Public License
 # along with ServerKit.  If not, see <http://www.gnu.org/licenses/>.
 
+from dotenv import load_dotenv
+load_dotenv()
+import os
 import discord
 from discord.ext import commands
-import random
 
-class thoughts(commands.Cog):
+class changelog(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("[DEBUG] Thoughts is OK!")
+        print("[DEBUG] Changelog is OK!")
         
     @commands.command(
-        name = 'thoughts', description = "Random thoughts and all.", usage = "Misc"
+        name = 'changelog', description = "Shows the version log about the bot!", usage = "Information"
     )
-    async def thoughts(self, ctx):
-        thoughtlist = [
-        'Man you got issues', 
-        'Ok brain now shut up', 
-        'Good Night and FUCK YOU!',
-        'Bread',
-        'Hamburger',
-        'You are not funny'
-        ]
-        random.seed()
-        embed = discord.Embed(title = ":thought_balloon: Here's your thought", description = thoughtlist[random.randrange(0, len(thoughtlist))], color = self.client.color)
+    async def changelog(self, ctx):
+        embed = discord.Embed(title = 'Changelog', color = self.client.color)
+        embed.description = "Version features and changes."
+        embed.add_field(name = "Version 0.2.2", value = "New branding! (With cleanup)", inline = False)
+        embed.add_field(name = "Version 0.2.1", value = "Major bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.2", value = "Added Music and changelog, with bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.1.1.4", value = "Bug fixes.", inline = False)
+        embed.set_footer(text = f"Version {self.client.version}")
         await ctx.send(embed = embed)
 
 def setup(client):
-    client.add_cog(thoughts(client))
+    client.add_cog(changelog(client))
