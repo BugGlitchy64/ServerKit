@@ -74,11 +74,8 @@ class music(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("[DEBUG] Music is OK!")
-        
-    @commands.command(
-        name = 'join', description = "Join a music channel", usage = "Music"
-    )
-    async def join(self, ctx):
+
+    async def join(self, ctx, normalCommand):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_connected():
             await voice.disconnect()
@@ -88,42 +85,44 @@ class music(commands.Cog):
                 await connected.channel.connect()
             channel = ctx.author.voice.channel.name
         embed = discord.Embed(title = '➕ Joined channel!', description = f'Check `{channel}` if I joined!', color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
 
-    @commands.command(
-        name = 'leave', description = "leave a music channel", usage = "Music"
-    )
-    async def leave(self, ctx, channel=None):
+    async def leave(self, ctx, normalCommand):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_connected():
             await voice.disconnect()
         embed = discord.Embed(title = '➖ Left Channel', description = "Let's jam later!", color = self.client.color)
         await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
 
-    @commands.command(
-        name = 'play', description = "Play a music from YouTube", usage = "Music"
-    )
-    async def play(self, ctx, *, link=None):
+    async def play(self, ctx, normalCommand, search=None):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
+        keyword = ' '.join(search)
         if voice is not None and not voice.is_playing() and voice.is_paused() and link is None:
             voice.resume()
             embed = discord.Embed(title = '▶️ Resuming...', description = 'Music should be resumed now!', color = self.client.color)
-        elif link is None:
+        elif search is None:
             embed = discord.Embed(title = '😕 No link/keyword', description = 'Are you dumb? No link/keyword = No music! Provide link and try again!', color = self.client.color)
         elif voice is None and not voice.is_connected():
             embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
-        elif voice is not None and link is not None and voice.is_playing() or voice.is_paused():
+        elif voice is not None and search is not None and voice.is_playing() or voice.is_paused():
             embed = discord.Embed(title = '😔 Queue is not supported yet!', description = f'Queue function will be added in a future update. Please use {self.client.command_prefix}stop or wait for it to finish!', color = self.client.color)
         else:
-            player = await YTDLSource.from_url(link, loop=None)
+            player = await YTDLSource.from_url(keyword, loop=None)
             voice.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
             embed = discord.Embed(title = '▶️ Now playing', description = f'{player.title}', color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
-    
-    @commands.command(
-        name = 'stop', description = "Stops music.", usage = "Music"
-    )
-    async def stop(self, ctx):
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+
+    async def stop(self, ctx, normalCommand):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_playing() or voice.is_paused():
             voice.stop()
@@ -132,12 +131,12 @@ class music(commands.Cog):
             embed = discord.Embed(title = "😕 Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
         else:
             embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
 
-    @commands.command(
-        name = 'pause', description = "Pauses music.", usage = "Music"
-    )
-    async def pause(self, ctx):
+    async def pause(self, ctx, normalCommand):
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice is not None and voice.is_playing() and not voice.is_paused():
             voice.pause()
@@ -148,7 +147,71 @@ class music(commands.Cog):
             embed = discord.Embed(title = "😕 Ayo there's no music!", description = "Why don't you play some music for the homies?", color = self.client.color)
         else:
             embed = discord.Embed(title = '😕 Ayo??', description = 'Hello? Where are you? Connect to a channel and try again!', color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+        
+    @commands.command(
+        name = 'join', description = "Join a music channel", usage = "Music"
+    )
+    async def normalJoin(self, ctx):
+        await self.join(ctx, True)
+
+    @commands.command(
+        name = 'leave', description = "leave a music channel", usage = "Music"
+    )
+    async def normalLeave(self, ctx):
+        await self.leave(ctx, True)
+
+    @commands.command(
+        name = 'play', description = "Play a music from YouTube", usage = "Music"
+    )
+    async def normalPlay(self, ctx, *search):
+        await self.play(ctx, True, search)
+        
+    
+    @commands.command(
+        name = 'stop', description = "Stops music.", usage = "Music"
+    )
+    async def normalStop(self, ctx):
+        await self.stop(ctx, True)
+
+    @commands.command(
+        name = 'pause', description = "Pauses music.", usage = "Music"
+    )
+    async def normalPause(self, ctx):
+        await self.pause(ctx, True)
+
+    @cog_ext.cog_slash(
+        name = 'join', description = "Join a music channel"
+    )
+    async def slashJoin(self, ctx):
+        await self.join(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'leave', description = "leave a music channel"
+    )
+    async def slashLeave(self, ctx):
+        await self.leave(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'play', description = "Play a music from YouTube"
+    )
+    async def slashPlay(self, ctx, search):
+        await self.play(ctx, False, search)
+
+    @cog_ext.cog_slash(
+        name = 'stop', description = "Stops music."
+    )
+    async def slashStop(self, ctx):
+        await self.stop(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'pause', description = "Pauses music."
+    )
+    async def slashPause(self, ctx):
+        await self.pause(ctx, False)
 
 def setup(client):
     client.add_cog(music(client))

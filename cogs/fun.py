@@ -18,6 +18,7 @@
 import discord
 from discord.ext import commands
 import random
+from discord_slash import cog_ext
 
 class fun(commands.Cog):
 
@@ -27,11 +28,8 @@ class fun(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("[DEBUG] Fun is OK!")
-        
-    @commands.command(
-        name = 'thoughts', description = "Random thoughts and all.", usage = "Fun"
-    )
-    async def thoughts(self, ctx):
+
+    async def thoughts(self, ctx, normalCommand):
         thoughtlist = [
         'Man you got issues', 
         'Ok brain now shut up', 
@@ -42,12 +40,12 @@ class fun(commands.Cog):
         ]
         random.seed()
         embed = discord.Embed(title = "💭 Here's your thought", description = thoughtlist[random.randrange(0, len(thoughtlist))], color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
 
-    @commands.command(
-        name = 'eightball', description = "Ask and see what the 8ball tells you", usage = "Fun"
-    )
-    async def eightball(self, ctx):
+    async def eightball(self, ctx, normalCommand):
         eightballList = [
         'Yes', 
         'No', 
@@ -59,15 +57,54 @@ class fun(commands.Cog):
         ]
         random.seed()
         embed = discord.Embed(title = "🎱 8 ball answers:", description = eightballList[random.randrange(0, len(eightballList))], color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+
+    async def dice(self, ctx, number, normalCommand):
+        random.seed()
+        embed = discord.Embed(title = "🎲 Dice rolls a/an...", description = f"{random.randint(1,int(number))}!", color = self.client.color)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+        
+    @commands.command(
+        name = 'thoughts', description = "Random thoughts and all.", usage = "Fun"
+    )
+    async def normalThoughts(self, ctx):
+        await self.thoughts(ctx, True)
+
+    @commands.command(
+        name = 'eightball', description = "Ask and see what the 8ball tells you", usage = "Fun"
+    )
+    async def normalEightball(self, ctx):
+        await self.eightball(ctx, True)
 
     @commands.command(
         name = 'dice', description = "Roll a dice!", usage = "Fun"
     )
-    async def dice(self, ctx, number):
-        random.seed()
-        embed = discord.Embed(title = "🎲 Dice rolls a/an...", description = f"{random.randint(1,int(number))}!", color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+    async def normalDice(self, ctx, number):
+        await self.dice(ctx, number, True)
+
+    @cog_ext.cog_slash(
+        name = 'thoughts', description = "Random thoughts and all."
+    )
+    async def slashThoughts(self, ctx):
+        await self.thoughts(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'eightball', description = "Ask and see what the 8ball tells you"
+    )
+    async def slashEightball(self, ctx):
+        await self.eightball(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'dice', description = "Roll a dice!"
+    )
+    async def slashDice(self, ctx, number):
+        await self.dice(ctx, number, False)
 
 def setup(client):
     client.add_cog(fun(client))

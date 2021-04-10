@@ -17,6 +17,7 @@
 
 import discord
 from discord.ext import commands
+from discord_slash import cog_ext
 
 class info(commands.Cog):
 
@@ -27,17 +28,45 @@ class info(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("[DEBUG] Info is OK!")
-        
-    @commands.command(
-        name = 'info', description = "Shows the info about the bot!", usage = "Information"
-    )
-    async def info(self, ctx):
+
+    async def info(self, ctx, normalCommand):
         embed = discord.Embed(title = 'ServerKit', color = self.client.color)
         embed.description = "This is a bot that came from the fustration of some bot features are locked by subscription and servers with a lot of bots, simplicity should be in every server. Written by BugGlitchy64."
         embed.add_field(name = "Invite link", value = "https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands", inline=False)
         embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit", inline=False)
         embed.set_footer(text = f"Version {self.client.version}")
-        await ctx.send(embed = embed, reference = ctx.message)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+
+    async def changelog(self, ctx, normalCommand):
+        embed = discord.Embed(title = 'Changelog', color = self.client.color)
+        embed.description = "Version features and changes."
+        embed.add_field(name = "Version 0.2.3", value = "Cleanup, final version before v0.3 (/shhhhh), and submit to top.gg, with few more features.", inline = False)
+        embed.add_field(name = "Version 0.2.2", value = "New branding! (With cleanup)", inline = False)
+        embed.add_field(name = "Version 0.2.1", value = "Major bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.2", value = "Added Music and changelog, with bug fixes!", inline = False)
+        embed.add_field(name = "Version 0.1.1.4", value = "Bug fixes.", inline = False)
+        embed.set_footer(text = f"Version {self.client.version}")
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+
+    async def ping(self, ctx, normalCommand):
+        ping = str(round(self.client.latency * 1000))
+        embed = discord.Embed(title = ':ping_pong: Pong!', description = '**' + ping + '**' + 'ms', color = self.client.color)
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+        
+    @commands.command(
+        name = 'info', description = "Shows the info about the bot!", usage = "Information"
+    )
+    async def normalInfo(self, ctx):
+        await self.info(ctx, True)
 
     @commands.command(
         name = 'help', aliases = ['commands'], description = "The help command lists all of the commands usable in the bot!", usage = "Information"
@@ -76,24 +105,32 @@ class info(commands.Cog):
     @commands.command(
         name = 'changelog', description = "Shows the version log about the bot!", usage = "Information"
     )
-    async def changelog(self, ctx):
-        embed = discord.Embed(title = 'Changelog', color = self.client.color)
-        embed.description = "Version features and changes."
-        embed.add_field(name = "Version 0.2.3", value = "Cleanup, final version before v0.3 (/shhhhh), and submit to top.gg, with few more features.", inline = False)
-        embed.add_field(name = "Version 0.2.2", value = "New branding! (With cleanup)", inline = False)
-        embed.add_field(name = "Version 0.2.1", value = "Major bug fixes!", inline = False)
-        embed.add_field(name = "Version 0.2", value = "Added Music and changelog, with bug fixes!", inline = False)
-        embed.add_field(name = "Version 0.1.1.4", value = "Bug fixes.", inline = False)
-        embed.set_footer(text = f"Version {self.client.version}")
-        await ctx.send(embed = embed, reference = ctx.message)
+    async def normalChangelog(self, ctx):
+        await self.changelog(ctx, True)
 
     @commands.command(
         name = 'ping', description = "Measure the delay between you and the bot!", usage = "Information"
     )
     async def ping(self, ctx):
-        ping = str(round(self.client.latency * 1000))
-        embed = discord.Embed(title = ':ping_pong: Pong!', description = '**' + ping + '**' + 'ms', color = self.client.color)
-        await ctx.send(embed = embed, reference = ctx.message)
+        await self.ping(ctx, True)
+
+    @cog_ext.cog_slash(
+        name = 'info', description = "Shows the info about the bot!"
+    )
+    async def slashInfo(self, ctx):
+        await self.info(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'changelog', description = "Shows the version log about the bot!"
+    )
+    async def slashChangelog(self, ctx):
+        await self.changelog(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'ping', description = "Measure the delay between you and the bot!"
+    )
+    async def slashPing(self, ctx):
+        await self.ping(ctx, False)
 
 def setup(client):
     client.add_cog(info(client))

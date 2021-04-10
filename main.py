@@ -21,11 +21,14 @@ load_dotenv()
 import os
 import discord
 from discord.ext import commands
+from discord_slash import SlashCommand
 
 if os.getenv("PRODUCTION") == "True":
-    client = commands.Bot(command_prefix = 'server.', case_insensitive = True)
+    client = commands.Bot(command_prefix = 'server.', case_insensitive = True, intents=discord.Intents.all())
 else:
-    client = commands.Bot(command_prefix = 'serverd.', case_insensitive = True)
+    client = commands.Bot(command_prefix = 'serverd.', case_insensitive = True, intents=discord.Intents.all())
+
+slash = SlashCommand(client, sync_commands=True)
 
 if os.getenv("PRODUCTION") == "True":
     client.color = 0x7289da
