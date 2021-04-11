@@ -77,7 +77,7 @@ class mod(commands.Cog):
                     if type(reasonList[0]) == tuple:
                         reasonFormatted = ' '.join(list(reasonList[0]))
                     else:
-                        reasonFormatted = ' '.join(list(reasonList)))
+                        reasonFormatted = ' '.join(list(reasonList))
                 else:
                     reasonFormatted = 'None'
                 await user.ban(delete_message_days=0, reason=reasonFormatted)

@@ -1,4 +1,6 @@
 # Changelog
+## Version 0.3.4
+- Hotfix for mod commands again.
 ## Version 0.3.3
 - Hotfix for slah command options
 ## Version 0.3.2
