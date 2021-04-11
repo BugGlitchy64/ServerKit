@@ -51,7 +51,7 @@ class info(commands.Cog):
             embed = discord.Embed(title = 'ℹ️ Miscellaneous commands', color = self.client.color)
             embed.description = f'Prefix are `{self.client.command_prefix}` or `/`.\nTo return to the important commands, type `{self.client.command_prefix}help`.'
             embed.add_field(name = 'ℹ️ Information', value = '`help` `info` `ping` `changelog`', inline = True)
-            embed.add_field(name = '😂 Fun', value = '`eightball` `dice` `thoughts`', inline = True)
+            embed.add_field(name = '😂 Fun', value = '`eightball` `dice` `thoughts` `someone`', inline = True)
             embed.add_field(name = 'Links', value = '[Support Server](https://discord.gg/YA5pTheC3A) [Invite link](https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands) [Github](https://github.com/BugGlitchy64/ServerKit)', inline = False)
             embed.set_footer(text = 'You are in page 2/2. (* ones are in construction)')
         else:
