@@ -97,19 +97,19 @@ class mod(commands.Cog):
         name = 'ban', description = "Bans a user.", usage = "Moderation"
     )
     async def normalBan(self, ctx, user: discord.Member, *reason):
-        await self.kick(ctx, True, user, reason)
+        await self.ban(ctx, True, user, reason)
 
     @cog_ext.cog_slash(
         name = 'kick', description = "Kicks a user."
     )
     async def slashKick(self, ctx, user: discord.Member, *reason):
-        await self.leave(ctx, False, user, reason)
+        await self.kick(ctx, False, user, reason)
 
     @cog_ext.cog_slash(
         name = 'ban', description = "Bans a user."
     )
     async def slashKick(self, ctx, user: discord.Member, *reason):
-        await self.leave(ctx, False, user, reason)
+        await self.ban(ctx, False, user, reason)
 
 def setup(client):
     client.add_cog(mod(client))
