@@ -42,7 +42,7 @@ else:
 
 async def status_task():
     while True:
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"{client.command_prefix}help"))
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=f"{client.command_prefix}help and /help"))
         await asyncio.sleep(10)
         await client.change_presence(activity=discord.Game(name=f"at version {client.version}"))
         await asyncio.sleep(10)
