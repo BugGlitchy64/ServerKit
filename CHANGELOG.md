@@ -1,4 +1,6 @@
 # Changelog
+## Version 0.3.3
+- Hotfix for slah command options
 ## Version 0.3.2
 - Include slash command option explainations.
 - Fix mod command one last time.
