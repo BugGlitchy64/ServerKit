@@ -119,19 +119,43 @@ class fun(commands.Cog):
         await self.thoughts(ctx, False)
 
     @cog_ext.cog_slash(
-        name = 'eightball', description = "Ask and see what the 8ball tells you"
+        name = 'eightball', description = "Ask and see what the 8ball tells you",
+        options=[
+            create_option(
+                 name="question",
+                 description="Why do you want to ask the 8ball?",
+                 option_type=3,
+                 required=False
+               )
+        ]
     )
-    async def slashEightball(self, ctx):
+    async def slashEightball(self, ctx, question):
         await self.eightball(ctx, False)
 
     @cog_ext.cog_slash(
-        name = 'dice', description = "Roll a dice!"
+        name = 'dice', description = "Roll a dice!",
+        options=[
+            create_option(
+                 name="number",
+                 description="Insert a number for the dice to roll.",
+                 option_type=4,
+                 required=True
+               )
+        ]
     )
     async def slashDice(self, ctx, number):
         await self.dice(ctx, number, False)
 
     @cog_ext.cog_slash(
-        name = 'someone', description = "Discord's April Fools feature, pings a random person."
+        name = 'someone', description = "Discord's April Fools feature, pings a random person.",
+        options=[
+            create_option(
+                 name="message",
+                 description="Insert a message for someone to see!",
+                 option_type=3,
+                 required=True
+               )
+        ]
     )
     async def slashSomeone(self, ctx, *message):
         await self.dice(ctx, False, message)

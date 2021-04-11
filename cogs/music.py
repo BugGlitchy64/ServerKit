@@ -196,7 +196,15 @@ class music(commands.Cog):
         await self.leave(ctx, False)
 
     @cog_ext.cog_slash(
-        name = 'play', description = "Play a music from YouTube"
+        name = 'play', description = "Play a music from YouTube",
+        options=[
+            create_option(
+                 name="search",
+                 description="Search term/Youtube link",
+                 option_type=3,
+                 required=True
+               )
+        ]
     )
     async def slashPlay(self, ctx, search):
         await self.play(ctx, False, search)

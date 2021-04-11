@@ -38,7 +38,11 @@ class mod(commands.Cog):
         else:
             try:
                 if reason:
-                    reasonFormatted = ' '.join(map(str, search))
+                    reasonList = list(reason)
+                    if type(reasonList[0]) == tuple:
+                        reasonFormatted = ' '.join(list(reasonList[0]))
+                    else:
+                        reasonFormatted = ' '.join(list(reasonList))
                 else:
                     reasonFormatted = 'None'
                 await user.kick(reason=reasonFormatted)
@@ -68,7 +72,11 @@ class mod(commands.Cog):
         else:
             try:
                 if reason:
-                    reasonFormatted = ' '.join(map(str, search))
+                    reasonList = list(reason)
+                    if type(reasonList[0]) == tuple:
+                        reasonFormatted = ' '.join(list(reasonList[0]))
+                    else:
+                        reasonFormatted = ' '.join(list(reasonList)))
                 else:
                     reasonFormatted = 'None'
                 await user.ban(delete_message_days=0, reason=reasonFormatted)
@@ -100,13 +108,41 @@ class mod(commands.Cog):
         await self.ban(ctx, True, user, reason)
 
     @cog_ext.cog_slash(
-        name = 'kick', description = "Kicks a user."
+        name = 'kick', description = "Kicks a user.", 
+        options=[
+            create_option(
+                 name="user",
+                 description="User you want to kick.",
+                 option_type=6,
+                 required=True
+               ),
+            create_option(
+                 name="reason",
+                 description="Reason why you want to kick the person.",
+                 option_type=3,
+                 required=True
+               )
+        ]
     )
     async def slashKick(self, ctx, user: discord.Member, *reason):
         await self.kick(ctx, False, user, reason)
 
     @cog_ext.cog_slash(
-        name = 'ban', description = "Bans a user."
+        name = 'ban', description = "Bans a user.",
+        options=[
+            create_option(
+                 name="user",
+                 description="User you want to ban.",
+                 option_type=6,
+                 required=True
+               ),
+            create_option(
+                 name="reason",
+                 description="Reason why you want to ban the person.",
+                 option_type=3,
+                 required=True
+               )
+        ]
     )
     async def slashKick(self, ctx, user: discord.Member, *reason):
         await self.ban(ctx, False, user, reason)
