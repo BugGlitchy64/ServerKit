@@ -17,6 +17,7 @@
 
 import discord
 from discord.ext import commands
+from discord_slash import cog_ext
 
 class mod(commands.Cog):
 
@@ -27,7 +28,7 @@ class mod(commands.Cog):
     async def on_ready(self):
         print("[DEBUG] Mod is OK!")
 
-    async def kick(self, ctx, normalCommand, user: discord.Member, reason=None):
+    async def kick(self, ctx, normalCommand, user: discord.Member, *reason):
         if user is None:
             embed = discord.Embed(title = '😕 No user', description = 'How can I kick someone if there is no user to kick? Mention someone and try again!', color = self.client.color)
             if normalCommand:
@@ -36,15 +37,18 @@ class mod(commands.Cog):
                 await ctx.send(embed = embed)
         else:
             try:
-                reasonFormatted = ' '.join(reason)
-                await user.kick(reason=reason)
+                if reason:
+                    reasonFormatted = ' '.join(map(str, search))
+                else:
+                    reasonFormatted = 'None'
+                await user.kick(reason=reasonFormatted)
                 embed = discord.Embed(title = '🔨 Kicked', description = f'{user.name}#{user.discriminator} has kicked for `{reasonFormatted}`', color = self.client.color)
                 if normalCommand:
                     await ctx.send(embed = embed, reference = ctx.message)
                 else:
                     await ctx.send(embed = embed)
                 dm = await user.create_dm()
-                embed = discord.Embed(title = "😔 You've been kicked", description = f'{ctx.author.name}#{ctx.author.discriminator} has kicked you for `{reason}`', color = self.client.color)
+                embed = discord.Embed(title = "😔 You've been kicked", description = f'{ctx.author.name}#{ctx.author.discriminator} has kicked you for `{reasonFormatted}`', color = self.client.color)
                 await dm.send(embed = embed)
             except discord.Forbidden:
                 embed = discord.Embed(title = "😕 Kick failed", description = f"Are they above you/the bot? Do you have the kick permission? Or you want to kick yourself? Try again!", color = self.client.color)
@@ -53,7 +57,7 @@ class mod(commands.Cog):
                 else:
                     await ctx.send(embed = embed)
 
-    async def ban(self, ctx, normalCommand, user: discord.Member, *, reason=None):
+    async def ban(self, ctx, normalCommand, user: discord.Member, *reason):
         if user is None:
             embed = discord.Embed(title = '😕 No user', description = 'How can I ban someone if there is no user to ban? Mention someone and try again!', color = self.client.color)
             await ctx.send(embed = embed, reference = ctx.message)
@@ -63,8 +67,11 @@ class mod(commands.Cog):
                 await ctx.send(embed = embed)
         else:
             try:
-                reasonFormatted = ' '.join(reason)
-                await user.ban(delete_message_days=0, reason=reason)
+                if reason:
+                    reasonFormatted = ' '.join(map(str, search))
+                else:
+                    reasonFormatted = 'None'
+                await user.ban(delete_message_days=0, reason=reasonFormatted)
                 embed = discord.Embed(title = '🔨 Banned', description = f'{user.name}#{user.discriminator} has banned for `{reasonFormatted}`', color = self.client.color)
                 if normalCommand:
                     await ctx.send(embed = embed, reference = ctx.message)
@@ -78,30 +85,30 @@ class mod(commands.Cog):
                 if normalCommand:
                     await ctx.send(embed = embed, reference = ctx.message)
                 else:
-                    await ctx.send(embed = embed))
+                    await ctx.send(embed = embed)
     
     @commands.command(
         name = 'kick', description = "Kicks a user.", usage = "Moderation"
     )
-    async def normalKick(self, ctx, user: discord.Member, *reason=None):
+    async def normalKick(self, ctx, user: discord.Member, *reason):
         await self.kick(ctx, True, user, reason)
     
     @commands.command(
         name = 'ban', description = "Bans a user.", usage = "Moderation"
     )
-    async def normalBan(self, ctx, user: discord.Member, *, reason=None):
+    async def normalBan(self, ctx, user: discord.Member, *reason):
         await self.kick(ctx, True, user, reason)
 
     @cog_ext.cog_slash(
         name = 'kick', description = "Kicks a user."
     )
-    async def slashKick(self, ctx, user: discord.Member, *reason=None):
+    async def slashKick(self, ctx, user: discord.Member, *reason):
         await self.leave(ctx, False, user, reason)
 
     @cog_ext.cog_slash(
         name = 'ban', description = "Bans a user."
     )
-    async def slashKick(self, ctx, user: discord.Member, *reason=None):
+    async def slashKick(self, ctx, user: discord.Member, *reason):
         await self.leave(ctx, False, user, reason)
 
 def setup(client):

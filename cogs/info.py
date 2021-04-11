@@ -18,6 +18,7 @@
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext
+from discord_slash.utils.manage_commands import create_option
 
 class info(commands.Cog):
 
@@ -31,10 +32,43 @@ class info(commands.Cog):
 
     async def info(self, ctx, normalCommand):
         embed = discord.Embed(title = 'ServerKit', color = self.client.color)
-        embed.description = "This is a bot that came from the fustration of some bot features are locked by subscription and servers with a lot of bots, simplicity should be in every server. Written by BugGlitchy64."
-        embed.add_field(name = "Invite link", value = "https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands", inline=False)
-        embed.add_field(name = "Github link", value = "https://github.com/BugGlitchy64/ServerKit", inline=False)
-        embed.set_footer(text = f"Version {self.client.version}")
+        embed.description = f"This command has been moved to {self.client.command_prefix}help"
+        if normalCommand:
+            await ctx.send(embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(embed = embed)
+
+    async def help(self, ctx, normalCommand, arg=None):
+        cogs = [c for c in self.client.cogs.keys()]
+        if arg == None:
+            embed = discord.Embed(title = 'ℹ️ Important commands', color = self.client.color)
+            embed.description = f'Here are a list of some important commands in the bot, prefix are `{self.client.command_prefix}` and `/`.\nType `{self.client.command_prefix}help (command)` for more info.\nType `{self.client.command_prefix}help 2` for miscellaneous commands.'
+            embed.add_field(name = '🔨 Moderation', value = '`ban` `kick` `mute*` `warn*`', inline = True)
+            embed.add_field(name = '🎵 Music', value = '`join` `play` `stop` `skip*` `voteskip*` `pause` `queue*`', inline = True)
+            embed.add_field(name = 'Links', value = '[Support Server](https://discord.gg/YA5pTheC3A) [Invite link](https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands) [Github](https://github.com/BugGlitchy64/ServerKit)', inline = False)
+            embed.set_footer(text = 'You are in page 1/2. (* ones are in construction)')
+        elif arg == "2":
+            embed = discord.Embed(title = 'ℹ️ Miscellaneous commands', color = self.client.color)
+            embed.description = f'Prefix are `{self.client.command_prefix}` or `/`.\nTo return to the important commands, type `{self.client.command_prefix}help`.'
+            embed.add_field(name = 'ℹ️ Information', value = '`help` `info` `ping` `changelog`', inline = True)
+            embed.add_field(name = '😂 Fun', value = '`eightball` `dice` `thoughts`', inline = True)
+            embed.add_field(name = 'Links', value = '[Support Server](https://discord.gg/YA5pTheC3A) [Invite link](https://discord.com/api/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands) [Github](https://github.com/BugGlitchy64/ServerKit)', inline = False)
+            embed.set_footer(text = 'You are in page 2/2. (* ones are in construction)')
+        else:
+            noCommand = True
+            lowArg = arg.lower()
+            for cog in cogs:
+                for command in self.client.get_cog(cog).walk_commands():
+                    if lowArg == command.name:
+                        embed = discord.Embed(title = f'{self.client.command_prefix}{command.name}', color = self.client.color)
+                        embed.description = f'`{command.description}`'
+                        embed.add_field(name = 'Category', value = command.usage, inline = True)
+                        embed.add_field(name = 'Alias(es)', value = command.aliases, inline = True)
+                        noCommand = False 
+                        break
+            if noCommand == True:    
+                embed = discord.Embed(title = "Ayo this command doesn't exist!", color = self.client.color)
+                embed.description = 'Did you made a typo, or are you curious as to if this command exists? Try again!'
         if normalCommand:
             await ctx.send(embed = embed, reference = ctx.message)
         else:
@@ -42,13 +76,7 @@ class info(commands.Cog):
 
     async def changelog(self, ctx, normalCommand):
         embed = discord.Embed(title = 'Changelog', color = self.client.color)
-        embed.description = "Version features and changes."
-        embed.add_field(name = "Version 0.2.3", value = "Cleanup, final version before v0.3 (/shhhhh), and submit to top.gg, with few more features.", inline = False)
-        embed.add_field(name = "Version 0.2.2", value = "New branding! (With cleanup)", inline = False)
-        embed.add_field(name = "Version 0.2.1", value = "Major bug fixes!", inline = False)
-        embed.add_field(name = "Version 0.2", value = "Added Music and changelog, with bug fixes!", inline = False)
-        embed.add_field(name = "Version 0.1.1.4", value = "Bug fixes.", inline = False)
-        embed.set_footer(text = f"Version {self.client.version}")
+        embed.description = "This command has been moved to [Github](https://github.com/BugGlitchy64/ServerKit/blob/master/CHANGELOG.md)"
         if normalCommand:
             await ctx.send(embed = embed, reference = ctx.message)
         else:
@@ -71,36 +99,8 @@ class info(commands.Cog):
     @commands.command(
         name = 'help', aliases = ['commands'], description = "The help command lists all of the commands usable in the bot!", usage = "Information"
     )
-    async def help(self, ctx, arg=None):
-        cogs = [c for c in self.client.cogs.keys()]
-        if arg == None:
-            embed = discord.Embed(title = 'ℹ️ Important commands', color = self.client.color)
-            embed.description = f'Here are a list of some important commands in the bot, prefix is `{self.client.command_prefix}`.\nType `{self.client.command_prefix}help (command)` for more info.\nType `{self.client.command_prefix}help 2` for miscellaneous commands.'
-            embed.add_field(name = '🔨 Moderation', value = '`ban` `kick` `mute*` `warn*`', inline = True)
-            embed.add_field(name = '🎵 Music', value = '`join` `play` `stop` `skip*` `voteskip*` `pause` `queue*`')
-            embed.set_footer(text = 'You are in page 1/2. (* ones are in construction)')
-        elif arg == "2":
-            embed = discord.Embed(title = 'ℹ️ Miscellaneous commands', color = self.client.color)
-            embed.description = f'Prefix is `{self.client.command_prefix}`.\nTo return to the important commands, type `{self.client.command_prefix}help`.'
-            embed.add_field(name = 'ℹ️ Information', value = '`help` `info` `ping` `changelog`', inline = True)
-            embed.add_field(name = '😂 Fun', value = '`eightball` `dice` `thoughts`', inline = True)
-            embed.set_footer(text = 'You are in page 2/2. (* ones are in construction)')
-        else:
-            noCommand = True
-            lowArg = arg.lower()
-            for cog in cogs:
-                for command in self.client.get_cog(cog).get_commands():
-                    if lowArg == command.name:
-                        embed = discord.Embed(title = f'{self.client.command_prefix}{command.name}', color = self.client.color)
-                        embed.description = f'`{command.description}`'
-                        embed.add_field(name = 'Category', value = command.usage, inline = True)
-                        embed.add_field(name = 'Alias(es)', value = command.aliases, inline = True)
-                        noCommand = False 
-                        break
-            if noCommand == True:    
-                embed = discord.Embed(title = "Ayo this command doesn't exist!", color = self.client.color)
-                embed.description = 'Did you made a typo, or are you curious as to if this command exists? Try again!'
-        await ctx.send(embed = embed, reference = ctx.message)
+    async def normalHelp(self, ctx, arg=None):
+        await self.help(ctx, True, arg)
 
     @commands.command(
         name = 'changelog', description = "Shows the version log about the bot!", usage = "Information"
@@ -119,6 +119,20 @@ class info(commands.Cog):
     )
     async def slashInfo(self, ctx):
         await self.info(ctx, False)
+
+    @cog_ext.cog_slash(
+        name = 'help', description = "The help command lists all of the commands usable in the bot!",
+        options=[
+            create_option(
+                 name="command",
+                 description="Insert a command to see descriptions and other info.",
+                 option_type=3,
+                 required=False
+               )
+        ]
+    )
+    async def slashInfo(self, ctx, arg=None):
+        await self.info(ctx, False, arg)
 
     @cog_ext.cog_slash(
         name = 'changelog', description = "Shows the version log about the bot!"

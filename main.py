@@ -28,7 +28,7 @@ if os.getenv("PRODUCTION") == "True":
 else:
     client = commands.Bot(command_prefix = 'serverd.', case_insensitive = True, intents=discord.Intents.all())
 
-slash = SlashCommand(client, sync_commands=True)
+slash = SlashCommand(client, override_type = True, sync_commands=True, sync_on_cog_reload=True)
 
 if os.getenv("PRODUCTION") == "True":
     client.color = 0x7289da
@@ -36,9 +36,9 @@ else:
     client.color = 0xffb600
 
 if os.getenv("PRODUCTION") == "True":
-    client.version = "Alpha 0.2.3"
+    client.version = "Alpha 0.3"
 else:
-    client.version = "Alpha-DEV 0.3"
+    client.version = "Alpha-DEV 0.4"
 
 async def status_task():
     while True:

@@ -69,6 +69,24 @@ class fun(commands.Cog):
             await ctx.send(embed = embed, reference = ctx.message)
         else:
             await ctx.send(embed = embed)
+
+    async def someone(self, ctx, normalCommand, *message):
+        members = ctx.guild.members
+        if type(message[0]) == tuple:
+            strMessage = ' '.join(list(message[0]))
+        else:
+            strMessage = ' '.join(message)
+        random.seed()
+        while True:
+            member = members[random.randrange(0, len(members))]
+            if not member.bot and member.id != ctx.author.id:
+                mentionUser = member
+                break
+        embed = discord.Embed(description = f"{strMessage}", color = self.client.color)
+        if normalCommand:
+            await ctx.send(content = mentionUser.mention, embed = embed, reference = ctx.message)
+        else:
+            await ctx.send(content = mentionUser.mention, embed = embed)
         
     @commands.command(
         name = 'thoughts', description = "Random thoughts and all.", usage = "Fun"
@@ -88,6 +106,12 @@ class fun(commands.Cog):
     async def normalDice(self, ctx, number):
         await self.dice(ctx, number, True)
 
+    @commands.command(
+        name = 'someone', description = "Discord's April Fools feature, pings a random person.", usage = "Fun"
+    )
+    async def normalSomeone(self, ctx, *message):
+        await self.someone(ctx, True, message)
+
     @cog_ext.cog_slash(
         name = 'thoughts', description = "Random thoughts and all."
     )
@@ -105,6 +129,12 @@ class fun(commands.Cog):
     )
     async def slashDice(self, ctx, number):
         await self.dice(ctx, number, False)
+
+    @cog_ext.cog_slash(
+        name = 'someone', description = "Discord's April Fools feature, pings a random person."
+    )
+    async def slashSomeone(self, ctx, *message):
+        await self.dice(ctx, False, message)
 
 def setup(client):
     client.add_cog(fun(client))
