@@ -1,4 +1,7 @@
 # Changelog
+## Version 0.3.5
+- Hotfix for "This interaction failed message."
+- Specify that Spotify links works with play command.
 ## Version 0.3.4
 - Hotfix for mod commands again.
 ## Version 0.3.3

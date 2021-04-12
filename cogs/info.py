@@ -60,7 +60,7 @@ class info(commands.Cog):
             for cog in cogs:
                 for command in self.client.get_cog(cog).walk_commands():
                     if lowArg == command.name:
-                        embed = discord.Embed(title = f'{self.client.command_prefix}{command.name} (or /{command.name}', color = self.client.color)
+                        embed = discord.Embed(title = f'{self.client.command_prefix}{command.name} (or /{command.name})', color = self.client.color)
                         embed.description = f'`{command.description}`'
                         embed.add_field(name = 'Category', value = command.usage, inline = True)
                         embed.add_field(name = 'Alias(es)', value = command.aliases, inline = True)
@@ -111,7 +111,7 @@ class info(commands.Cog):
     @commands.command(
         name = 'ping', description = "Measure the delay between you and the bot!", usage = "Information"
     )
-    async def ping(self, ctx):
+    async def normalPing(self, ctx):
         await self.ping(ctx, True)
 
     @cog_ext.cog_slash(
