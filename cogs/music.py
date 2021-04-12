@@ -117,7 +117,6 @@ class music(commands.Cog):
             player = await YTDLSource.from_url(keyword, loop=None)
             voice.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
             embed = discord.Embed(title = '▶️ Now playing', description = f'{player.title}', color = self.client.color)
-        wait(1)
         if normalCommand:
             await ctx.send(embed = embed, reference = ctx.message)
         else:
