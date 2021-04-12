@@ -131,8 +131,8 @@ class info(commands.Cog):
                )
         ]
     )
-    async def slashInfo(self, ctx, arg=None):
-        await self.info(ctx, False, arg)
+    async def slashHelp(self, ctx, arg=None):
+        await self.help(ctx, False, arg)
 
     @cog_ext.cog_slash(
         name = 'changelog', description = "Shows the version log about the bot!"

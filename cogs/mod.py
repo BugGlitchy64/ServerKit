@@ -145,7 +145,7 @@ class mod(commands.Cog):
                )
         ]
     )
-    async def slashKick(self, ctx, user: discord.Member, *reason):
+    async def slashBan(self, ctx, user: discord.Member, *reason):
         await self.ban(ctx, False, user, reason)
 
 def setup(client):

@@ -159,7 +159,7 @@ class fun(commands.Cog):
         ]
     )
     async def slashSomeone(self, ctx, *message):
-        await self.dice(ctx, False, message)
+        await self.someone(ctx, False, message)
 
 def setup(client):
     client.add_cog(fun(client))
