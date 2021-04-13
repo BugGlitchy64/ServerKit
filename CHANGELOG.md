@@ -30,7 +30,7 @@ and this project hasn't adhere to [Semantic Versioning](https://semver.org/spec/
 - Include option explainations into slash commands.
 
 ### Fixed
-- Update pulling reason text from command to prevent error.
+- Update pulling reason text from user's message to prevent error.
 
 ## Alpha 0.3.1 - 2021-04-11
 ### Changed
