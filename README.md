@@ -1,6 +1,7 @@
 # ServerKit
 
 [Invite link](https://discord.com/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands)
+
 ServerKit is a Discord bot that combats bot features that are locked by paywall and reduce the number of bots needed in a server.
 
 ## Table of contents
