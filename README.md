@@ -1,26 +1,39 @@
 # ServerKit
-ServerKit is not an Apple product, it is a Discord bot especifically to combat bot features that are locked by paywall and servers that have a lot of bots (and some of them, to the server owner, only use one of the functions).
 
 [Invite link](https://discord.com/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands)
+ServerKit is a Discord bot that combats bot features that are locked by paywall and reduce the number of bots needed in a server.
+
+## Table of contents
+* [Setup](#setup)
+* [Features](#features)
+* [Support](#support)
+* [Self-hosting and using the bot's code](#self-hosting-or-using-the-bots-code-in-general)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
 
 ## Setup
 
 1. Install latest version of Python, discord.py, PyNaCl, Youtube-dl, python-dotenv, FFmpeg and discord-py-slash-command.
 2. Create a .env file with the contents:
-
-"PRODUCTION=False
-
+```
+PRODUCTION=False
 PRODUCTIONTOKEN=(Leave blank)
-
-DEVTOKEN=(Your bot token)"
-
-3. Start main.py
+DEVTOKEN=(Your bot token)
+```
+3. Start `main.py`
 
 ## Features
+
 ### Open Source (and being Libre)
 Being open source benefits the users, everyone can submit bugs, check code, or even pull request to make the bot work better. I believe in trust!
 ### Free, forever
 No patreon bs.
+### Other features
+* Slash Command Support
+* Moderation commands
+* Music commands
+* Fun commands
 
 ## Support
 Join the Support server on [Discord](https://discord.gg/CqRkKpZR), or if the bug impacts all users, submit a issue here.
