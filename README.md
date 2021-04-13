@@ -1,6 +1,8 @@
 # ServerKit
 ServerKit is not an Apple product, it is a Discord bot especifically to combat bot features that are locked by paywall and servers that have a lot of bots (and some of them, to the server owner, only use one of the functions).
 
+[Invite link](https://discord.com/oauth2/authorize?client_id=828582617254461481&permissions=2587094358&scope=bot%20applications.commands)
+
 ## Setup
 
 1. Install latest version of Python, discord.py, PyNaCl, Youtube-dl, python-dotenv, FFmpeg and discord-py-slash-command.
