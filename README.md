@@ -5,6 +5,7 @@
 ServerKit is a Discord bot that combats bot features that are locked by paywall and reduce the number of bots needed in a server.
 
 ## Table of contents
+
 * [Technologies used](#technologies-used)
 * [Setup](#setup)
 * [Features](#features)
