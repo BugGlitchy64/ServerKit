@@ -5,6 +5,7 @@
 ServerKit is a Discord bot that combats bot features that are locked by paywall and reduce the number of bots needed in a server.
 
 ## Table of contents
+* [Technologies used](#technologies-used)
 * [Setup](#setup)
 * [Features](#features)
 * [Roadmap](#roadmap)
@@ -15,9 +16,21 @@ ServerKit is a Discord bot that combats bot features that are locked by paywall 
 * [Inspiration](#Inspiration)
 * [License](#license)
 
+## Technologies used
+
+| Technology | Description | Link |
+| ----------- | ----------- | ----------- |
+| Python | A beginner-friendly programming language | https://www.python.org/ |
+| python-dotenv | Read key-value pairs from a .env file and set them as environment variables. | https://pypi.org/project/python-dotenv/ |
+| discord.py | Modern, easy to use, feature-rich, and async ready API wrapper for Discord in Python. | https://github.com/Rapptz/discord.py/ |
+| discord-py-slash-command | A simple discord slash command handler for discord.py. | https://github.com/eunwoo1104/discord-py-slash-command |
+| PyNaCl | Python binding to the Networking and Cryptography (NaCl) library. | https://github.com/pyca/pynacl |
+| FFmpeg | A complete, cross-platform solution to record, convert and stream audio and video. | https://www.ffmpeg.org/ |
+| youtube-dl | Command-line program to download videos from YouTube.com and other video sites. | https://github.com/ytdl-org/youtube-dl |
+
 ## Setup
 
-1. Install latest version of Python, discord.py, PyNaCl, Youtube-dl, python-dotenv, FFmpeg and discord-py-slash-command.
+1. Install latest version of above list.
 2. Create a .env file with the contents:
 ```
 PRODUCTION=False
