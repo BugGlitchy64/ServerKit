@@ -25,9 +25,9 @@ No patreon bs.
 ## Support
 Join the Support server on [Discord](https://discord.gg/CqRkKpZR), or if the bug impacts all users, submit a issue here.
 
-## Self-hosting
-You can self host this bot, but for private use only, please don't go out of your way and use the code as your own for your own bot, as per the license requires.
-You can only self host this bot if you want to test your changes.
+## Self-hosting (or using the bot's code in general)
+You can only self-host this bot if you want to test your changes.
+As per the license requires, PLEASE DON'T TAKE THE BOT'S CODE AS YOUR OWN.
 
 ## Roadmap
 - More fun features (View memes and create memes)
