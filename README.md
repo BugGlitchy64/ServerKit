@@ -42,7 +42,7 @@ DEVTOKEN=(Your bot token)
 ## Features
 
 ### Open Source (and being Libre)
-Being open source benefits the users, everyone can submit bugs, check code, or even pull request to make the bot work better. I believe in trust!
+Being open source benefits the users, everyone can submit bugs, check code, or even pull request to make the bot work better.
 
 ### Free, forever
 No patreon bs.
