@@ -51,7 +51,7 @@ and this project hasn't adhere to [Semantic Versioning](https://semver.org/spec/
 - Move the contents of changelog and info command to Github and Help command respectively, command still exists.
 
 ### Fixed
-- Fixed embed not showing up in play, stop, pause commandz while user isn't in a voice channel.
+- Fixed embed not showing up in play, stop, pause commands while user isn't in a voice channel.
 - Attempting to fix 403 Error command
 - Removed useless options in youtube-dl
 
