@@ -5,9 +5,13 @@ ServerKit is not an Apple product, it is a Discord bot especifically to combat b
 
 1. Install latest version of Python, discord.py, PyNaCl, Youtube-dl, python-dotenv, FFmpeg and discord-py-slash-command.
 2. Create a .env file with the contents:
+
 "PRODUCTION=False
+
 PRODUCTIONTOKEN=(Leave blank)
+
 DEVTOKEN=(Your bot token)"
+
 3. Start main.py
 
 ## Features
