@@ -7,10 +7,12 @@ ServerKit is a Discord bot that combats bot features that are locked by paywall 
 ## Table of contents
 * [Setup](#setup)
 * [Features](#features)
+* [Roadmap](#roadmap)
 * [Support](#support)
 * [Self-hosting and using the bot's code](#self-hosting-or-using-the-bots-code-in-general)
-* [Roadmap](#roadmap)
 * [Contributing](#contributing)
+* [Project status](#project-status)
+* [Inspiration](#Inspiration)
 * [License](#license)
 
 ## Setup
@@ -28,28 +30,41 @@ DEVTOKEN=(Your bot token)
 
 ### Open Source (and being Libre)
 Being open source benefits the users, everyone can submit bugs, check code, or even pull request to make the bot work better. I believe in trust!
+
 ### Free, forever
 No patreon bs.
+
 ### Other features
 * Slash Command Support
 * Moderation commands
 * Music commands
 * Fun commands
 
-## Support
-Join the Support server on [Discord](https://discord.gg/CqRkKpZR), or if the bug impacts all users, submit a issue here.
-
-## Self-hosting (or using the bot's code in general)
-You can only self-host this bot if you want to test your changes.
-As per the license requires, PLEASE DON'T TAKE THE BOT'S CODE AS YOUR OWN.
-
 ## Roadmap
 - More fun features (View memes and create memes)
 - Welcomer features
 - More moderation features (Logging, etc.)
 
+## Support
+
+Join the Support server on [Discord](https://discord.gg/CqRkKpZR), or if the bug impacts all users, submit a issue here.
+
+## Self-hosting (or using the bot's code in general)
+
+You can only self-host this bot if you want to test your changes.
+As per the license requires, PLEASE DON'T TAKE THE BOT'S CODE AS YOUR OWN.
+
 ## Contributing
+
 I am ABSOLUTELY open to any contributions, please make sure you state what changed.
+
+## Project status
+
+Project is in progress and allow everyone to use and test.
+
+## Inspiration
+
+Thanks to all major Discord bots out there to make me develop this bot! Specially those bots that it's festures are locked by paywalls.
 
 ## License
 Up until version 0.3.5.1, it is in [GPL license](https://www.gnu.org/licenses/gpl-3.0.html), after 0.3.5.1, it will be switched to [AGPL License](https://www.gnu.org/licenses/agpl-3.0.html) since Discord Bots counts as server software (duh.)
