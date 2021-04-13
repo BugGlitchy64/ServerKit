@@ -78,7 +78,7 @@ Project is in progress and allow everyone to use and test.
 
 ## Inspiration
 
-Thanks to all major Discord bots out there to make me develop this bot! Specially those bots that it's festures are locked by paywalls.
+Thanks to all major Discord bots out there to make me develop this bot! Specially those bots that it's features are locked by paywalls.
 
 ## License
 Up until version 0.3.5.1, it is in [GPL license](https://www.gnu.org/licenses/gpl-3.0.html), after 0.3.5.1, it will be switched to [AGPL License](https://www.gnu.org/licenses/agpl-3.0.html) since Discord Bots counts as server software (duh.)
