@@ -21,11 +21,10 @@ ServerKit is a Discord bot that combats bot features that are locked by paywall 
 
 | Technology | Description | Link |
 | ----------- | ----------- | ----------- |
-| Python | A beginner-friendly programming language | https://www.python.org/ |
-| python-dotenv | Read key-value pairs from a .env file and set them as environment variables. | https://pypi.org/project/python-dotenv/ |
-| discord.py | Modern, easy to use, feature-rich, and async ready API wrapper for Discord in Python. | https://github.com/Rapptz/discord.py/ |
-| discord-py-slash-command | A simple discord slash command handler for discord.py. | https://github.com/eunwoo1104/discord-py-slash-command |
-| PyNaCl | Python binding to the Networking and Cryptography (NaCl) library. | https://github.com/pyca/pynacl |
+| Javascript | 'JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions." - Mozilla MDN | None |
+| Typescript | Builds on JavaScript, one of the world’s most used tools, by adding static type definitions. | https://www.typescriptlang.org/ |
+| discord.js | discord.js is a powerful node.js module that allows you to interact with the Discord API very easily. | https://discord.js.org/ |
+| discord.ts | Is an extension of discord.js | https://github.com/OwenCalvin/discord.ts |
 | FFmpeg | A complete, cross-platform solution to record, convert and stream audio and video. | https://www.ffmpeg.org/ |
 | youtube-dl | Command-line program to download videos from YouTube.com and other video sites. | https://github.com/ytdl-org/youtube-dl |
 
