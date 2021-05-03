@@ -2,10 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project hasn't adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) yet. (will be in Version Alpha 4.0.0!)
+and this project is adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Changed
+- License changed from GPLv3 to AGPLv3.
+- Switched to a new api wrapper (discord.js).
 - Updated the README and CHANGELOG since the bot is added to the curated list of open source Discord bots.
 
 ## [Alpha 0.3.5.1] - 2021-04-12
